@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | Online Book Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">BookWorm</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="stories.html">Stories</a></li>
+                <li><a href="publish.html">Publish</a></li>
+                <li><a href="#" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="profile-container">
+        <div class="profile-header">
+            <h2>User Profile</h2>
+            <p><strong>Username:</strong> <span id="username"></span></p>
+            <p><strong>Email:</strong> <span id="email"></span></p>
+        </div>
+
+        <h3>Your Published Stories</h3>
+        <div id="user-stories">
+            <!-- User's published stories will be dynamically loaded here -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Online Book Library</p>
+    </footer>
+
+    <script src="profile.js"></script>
+</body>
+</html>
