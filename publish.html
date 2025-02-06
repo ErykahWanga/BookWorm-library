@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Publish Story | Online Book Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">BookWorm</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="stories.html">Stories</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="logout.html" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="publish-section">
+        <h2>Publish Your Story</h2>
+        <form id="publish-form">
+            <label for="title">Story Title:</label>
+            <input type="text" id="title" required>
+
+            <label for="coverImage">Cover Image URL:</label>
+            <input type="text" id="coverImage" required>
+
+            <label for="content">Story Content:</label>
+            <textarea id="content" rows="10" required></textarea>
+
+            <button type="submit">Publish</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Online Book Library</p>
+    </footer>
+
+    <script src="publish.js"></script>
+</body>
+</html>
