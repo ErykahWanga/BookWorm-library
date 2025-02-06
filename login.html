@@ -8,10 +8,10 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Navigation -->
     <header>
         <nav>
-            <div class="logo">Book Library</div>
+            <div class="logo">BookWorm</div>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="stories.html">Stories</a></li>
@@ -22,13 +22,14 @@
     </header>
 
     <!-- Login Form -->
-    <section class="form-section">
-        <h2>Login to Your Account</h2>
-        <form id="loginForm">
-            <input type="email" id="loginEmail" placeholder="Email" required>
-            <input type="password" id="loginPassword" placeholder="Password" required>
+    <section class="login-form">
+        <h2>Login</h2>
+        <form id="login-form">
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
+        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
     </section>
 
     <!-- Footer -->
@@ -36,6 +37,6 @@
         <p>&copy; 2025 Online Book Library</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
