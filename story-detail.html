@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Detail | Online Book Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <header>
+        <nav>
+            <div class="logo">Book Library</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="stories.html">Stories</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Story Detail Section -->
+    <section class="story-detail">
+        <div class="story-header">
+            <img src="assets/images/story1.jpg" alt="Story Image">
+            <div class="story-info">
+                <h1>The Adventure Begins</h1>
+                <p>by Jane Doe</p>
+                <p>Rating: 4.5/5</p>
+                <div class="story-actions">
+                    <button id="rateBtn">Rate this Story</button>
+                    <button id="likeBtn">Like</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="story-content">
+            <p><strong>Story:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
+            <p><strong>Genre:</strong> Adventure, Fantasy</p>
+            <p><strong>Published:</strong> January 2025</p>
+
+            <div class="comments">
+                <h3>Comments</h3>
+                <textarea id="commentBox" placeholder="Leave a comment..."></textarea>
+                <button id="submitComment">Post Comment</button>
+                <div id="commentList">
+                    <!-- User comments will go here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Online Book Library</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
