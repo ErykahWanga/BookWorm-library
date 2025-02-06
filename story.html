@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story | Online Book Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <nav>
+            <div class="logo">BookWorm</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="stories.html">Stories</a></li>
+                <li><a href="profile.html">Profile</a></li>
+                <li><a href="logout.html" onclick="logout()">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="story-container" id="story-container">
+        <!-- Story details will be loaded dynamically using JavaScript -->
+    </section>
+
+    <section class="comment-section">
+        <h3>Comments</h3>
+        <div id="comments-list">
+            <!-- Comments will be dynamically added here -->
+        </div>
+        <textarea id="comment-input" placeholder="Write a comment..." rows="3"></textarea>
+        <button onclick="submitComment()">Post Comment</button>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Online Book Library</p>
+    </footer>
+
+    <script src="story.js"></script>
+</body>
+</html>
