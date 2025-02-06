@@ -1,132 +1,128 @@
-// Array of sample stories for now (this will eventually come from localStorage)
-const stories = [
-    { title: "The Adventure Begins", author: "Jane Doe", rating: "4.5/5", img: "assets/images/story1.jpg", link: "story-detail.html" },
-    { title: "Lost in the Stars", author: "John Smith", rating: "4.8/5", img: "assets/images/story2.jpg", link: "story-detail.html" },
-    { title: "The Secret Path", author: "Emily Johnson", rating: "4.7/5", img: "assets/images/story3.jpg", link: "story-detail.html" }
-];
+document.addEventListener("DOMContentLoaded", function () {
+    const featuredStoriesContainer = document.getElementById("featured-stories");
+    const latestStoriesContainer = document.getElementById("latest-stories");
+    const allStoriesContainer = document.getElementById("all-stories");
 
-// Function to load stories dynamically
-function loadStories() {
-    const storyGrid = document.querySelector('.story-grid');
-    storyGrid.innerHTML = '';
+    let stories = JSON.parse(localStorage.getItem("stories")) || [];
 
-    stories.forEach(story => {
-        const storyItem = document.createElement('div');
-        storyItem.classList.add('story-item');
-        
-        storyItem.innerHTML = `
-            <img src="${story.img}" alt="${story.title}">
-            <h3>${story.title}</h3>
-            <p>by ${story.author}</p>
-            <p>Rating: ${story.rating}</p>
-            <a href="${story.link}">Read More</a>
-        `;
-        
-        storyGrid.appendChild(storyItem);
-    });
-}
+    function displayStories(container, storiesToShow) {
+        if (!container) return;
 
-// Function to search stories by title
-function searchStories() {
-    const searchInput = document.getElementById('searchInput').value.toLowerCase();
-    const filteredStories = stories.filter(story => story.title.toLowerCase().includes(searchInput));
-    
-    // Update story grid with filtered results
-    const storyGrid = document.querySelector('.story-grid');
-    storyGrid.innerHTML = '';
-    
-    filteredStories.forEach(story => {
-        const storyItem = document.createElement('div');
-        storyItem.classList.add('story-item');
-        
-        storyItem.innerHTML = `
-            <img src="${story.img}" alt="${story.title}">
-            <h3>${story.title}</h3>
-            <p>by ${story.author}</p>
-            <p>Rating: ${story.rating}</p>
-            <a href="${story.link}">Read More</a>
-        `;
-        
-        storyGrid.appendChild(storyItem);
-    });
-}
+        container.innerHTML = "";
+        storiesToShow.forEach(story => {
+            let storyCard = document.createElement("div");
+            storyCard.classList.add("story-card");
+            storyCard.innerHTML = `
+                <img src="${story.coverImage}" alt="Story Cover">
+                <div class="story-info">
+                    <h3>${story.title}</h3>
+                    <p>By: ${story.author}</p>
+                    <button onclick="viewStory('${story.id}')">Read More</button>
+                </div>
+            `;
+            container.appendChild(storyCard);
+        });
+    }
 
-// Initialize the page by loading all stories
-document.addEventListener('DOMContentLoaded', loadStories);
-// Simulating stored comments (In a real app, this would be from a database)
-const comments = [];
+    // Show stories on different pages
+    if (featuredStoriesContainer) {
+        let featured = stories.slice(0, 4);
+        displayStories(featuredStoriesContainer, featured);
+    }
 
-// Handle "Post Comment"
-document.getElementById('submitComment').addEventListener('click', function() {
-    const commentBox = document.getElementById('commentBox');
-    if (commentBox.value.trim() !== '') {
-        comments.push(commentBox.value);
-        commentBox.value = '';
-        displayComments();
+    if (latestStoriesContainer) {
+        let latest = stories.reverse().slice(0, 4);
+        displayStories(latestStoriesContainer, latest);
+    }
+
+    if (allStoriesContainer) {
+        displayStories(allStoriesContainer, stories);
     }
 });
 
-// Display comments
-function displayComments() {
-    const commentList = document.getElementById('commentList');
-    commentList.innerHTML = '';
-    comments.forEach(comment => {
-        const p = document.createElement('p');
-        p.textContent = comment;
-        commentList.appendChild(p);
-    });
+function viewStory(storyId) {
+    localStorage.setItem("currentStory", storyId);
+    window.location.href = "story.html";
 }
+// script.js
 
-// Handle Story Rating (Simplified)
-document.getElementById('rateBtn').addEventListener('click', function() {
-    alert('Thank you for rating!');
+// Get all the like buttons
+const likeButtons = document.querySelectorAll('.like-btn');
+
+likeButtons.forEach(button => {
+    button.addEventListener('click', function() {
+        const likeCount = this.nextElementSibling; // Find the like count span next to the button
+        let currentLikes = parseInt(likeCount.textContent);
+        likeCount.textContent = currentLikes + 1; // Increase the like count
+    });
+});
+// script.js
+
+// Get all the like buttons, like counts, and comment sections
+const likeButtons = document.querySelectorAll('.like-btn');
+const likeCounts = document.querySelectorAll('.like-count');
+const commentBoxes = document.querySelectorAll('.comment-box');
+const commentButtons = document.querySelectorAll('.comment-btn');
+const commentsLists = document.querySelectorAll('.comments-list');
+
+// Load the saved like counts from localStorage when the page loads
+window.onload = function() {
+    // Load and display saved like counts
+    likeCounts.forEach((likeCount, index) => {
+        const savedLikes = localStorage.getItem(`likeCount-${index}`);
+        if (savedLikes !== null) {
+            likeCount.textContent = savedLikes;
+        }
+    });
+
+    // Load and display saved comments for each story
+    commentBoxes.forEach((commentBox, index) => {
+        const savedComments = JSON.parse(localStorage.getItem(`comments-${index}`)) || [];
+        savedComments.forEach(comment => {
+            const commentItem = document.createElement('div');
+            commentItem.classList.add('comment-item');
+            commentItem.textContent = comment;
+            commentsLists[index].appendChild(commentItem);
+        });
+    });
+};
+
+// Handle like button click
+likeButtons.forEach((button, index) => {
+    button.addEventListener('click', function() {
+        const likeCount = likeCounts[index];
+        let currentLikes = parseInt(likeCount.textContent);
+        currentLikes++;
+        likeCount.textContent = currentLikes;
+
+        // Save the updated like count to localStorage
+        localStorage.setItem(`likeCount-${index}`, currentLikes);
+    });
 });
 
-// Handle Like Button
-document.getElementById('likeBtn').addEventListener('click', function() {
-    alert('You liked this story!');
-});
-// Sign-up Form Handling
-document.getElementById('signupForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
-    
-    // Get user input
-    const username = document.getElementById('username').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    
-    // Validate fields
-    if (username && email && password) {
-        // Store user data in localStorage
-        const userData = { username, email, password };
-        localStorage.setItem('user', JSON.stringify(userData));
-        
-        // Redirect to login page after successful sign-up
-        alert('Sign up successful! You can now log in.');
-        window.location.href = 'login.html';
-    } else {
-        alert('Please fill in all fields.');
-    }
+// Handle comment button click
+commentButtons.forEach((button, index) => {
+    button.addEventListener('click', function() {
+        const commentBox = commentBoxes[index];
+        const commentsList = commentsLists[index];
+
+        const newComment = commentBox.value.trim();
+        if (newComment) {
+            // Create a new comment item and add it to the list
+            const commentItem = document.createElement('div');
+            commentItem.classList.add('comment-item');
+            commentItem.textContent = newComment;
+            commentsList.appendChild(commentItem);
+
+            // Save the new comment to localStorage
+            const existingComments = JSON.parse(localStorage.getItem(`comments-${index}`)) || [];
+            existingComments.push(newComment);
+            localStorage.setItem(`comments-${index}`, JSON.stringify(existingComments));
+
+            // Clear the comment box
+            commentBox.value = '';
+        }
+    });
 });
 
-// Login Form Handling
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
-    
-    // Get user input
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-
-    // Retrieve user data from localStorage
-    const storedUser = JSON.parse(localStorage.getItem('user'));
-
-    // Validate login credentials
-    if (storedUser && storedUser.email === email && storedUser.password === password) {
-        alert('Login successful!');
-        // Redirect to stories page after successful login
-        window.location.href = 'stories.html';
-    } else {
-        alert('Invalid credentials. Please try again.');
-    }
-});
 
